@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SessionReview from "./ReviewSession/components/SessionReview/SessionReview";
+import Layout from "./components/Layout";
+import { PatientProvider } from "./context/ReviewSessionContext";
+import PatientManagement from "./components/PatientManagement";
+import PatientDashboard from "./PatientDetails/components/PatientDashboard/PatientDashboard"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PatientProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<PatientManagement />} />
+            <Route path="session-review/:patientId" element={<SessionReview />} />
+            <Route path="patient/:patientId" element={<PatientDashboard />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </PatientProvider>
   );
 }
 
